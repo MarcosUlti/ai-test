@@ -68,7 +68,7 @@ Esses dados podem ser obtidos no painel da Cloudflare.
 # ▶️ Executar localmente
 
 ```
-npm start
+npm server.js
 ```
 
 O servidor iniciará em:
@@ -98,7 +98,7 @@ npm install
 Start Command:
 
 ```
-npm start
+npm server.js
 ```
 
 ---
