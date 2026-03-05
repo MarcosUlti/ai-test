@@ -8,51 +8,50 @@ app.use(express.json())
 app.use(express.static("public"))
 
 const API_KEY = process.env.API_KEY
+const ACCOUNT_ID = process.env.ACCOUNT_ID
 
-app.post("/chat", async (req, res) => {
+app.post("/chat", async (req,res)=>{
 
-    try {
+    try{
 
         const msg = req.body.message
 
-        const response = await fetch("https://api.apifreellm.com/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${API_KEY}`
-            },
-            body: JSON.stringify({
-                model: "gpt-4o-mini",
-                messages: [
-                    { role: "user", content: msg }
-                ]
-            })
-        })
+        const response = await fetch(
+            `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/ai/run/@cf/meta/llama-3-8b-instruct`,
+            {
+                method:"POST",
+                headers:{
+                    "Authorization":`Bearer ${API_KEY}`,
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    messages:[
+                        { role:"user", content:msg }
+                    ]
+                })
+            }
+        )
 
         const data = await response.json()
 
-        console.log(data) // log pra debug
-
-        if (!data.choices) {
-            return res.json({ reply: "Erro na API." })
-        }
-
         res.json({
-            reply: data.choices[0].message.content
+            reply: data.result.response
         })
 
-    } catch (err) {
+    }catch(err){
 
-        console.error("Erro:", err)
+        console.log(err)
 
         res.json({
-            reply: "Erro ao falar com a IA."
+            reply:"Erro ao chamar IA"
         })
+
     }
+
 })
 
 const PORT = process.env.PORT || 3000
 
-app.listen(PORT, () => {
+app.listen(PORT, ()=>{
     console.log("Server rodando")
 })
