@@ -7,7 +7,7 @@ Um projeto simples para testar um **chat com Inteligência Artificial** usando:
 * HTML / CSS / JavaScript
 * API de IA da Cloudflare
 
-O objetivo do projeto é apenas **demonstrar uma IA respondendo mensagens em um site**, sem foco em produção.
+O objetivo do projeto é apenas **demonstrar a IA respondendo mensagens em um site**, sem foco em produção.
 
 ---
 
